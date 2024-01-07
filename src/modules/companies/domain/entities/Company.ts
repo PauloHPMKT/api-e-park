@@ -6,13 +6,13 @@ export interface CompanyProps {
   email: string;
   phone: string;
   address: CompanyProps.Address;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export class CompanyEntity {
   constructor(private readonly props: CompanyProps) {
     this.props.created_at = this.props.created_at ?? new Date();
+    this.props.updated_at = this.props.updated_at ?? new Date();
   }
 }
