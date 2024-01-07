@@ -15,4 +15,10 @@ export class EnvConfigService implements EnvConfig {
   getDbHost(): string {
     return this.configService.get<string>('DB_HOST');
   }
+  getGPTAPIKey(): string {
+    return this.configService.get<string>('OPENAI_API_KEY');
+  }
+  getOrganizationsAPIKey(): string {
+    return this.configService.get<string>('ORGANIZATION_KEY');
+  }
 }
