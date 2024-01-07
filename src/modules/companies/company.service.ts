@@ -1,22 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { CompanyEntity } from './domain/entities/Company';
 
 @Injectable()
 export class CompanyService {
-  companies = [
-    {
-      id: 1,
-      name: 'Company 1',
-    },
-    {
-      id: 2,
-      name: 'Company 2',
-    },
-    {
-      id: 3,
-      name: 'Company 3',
-    },
-  ];
-  findAll(): { id: number; name: string }[] {
-    return this.companies;
+  constructor(
+    @Inject('COMPANY_MODEL')
+    private readonly companyModel: Model<CompanyEntity>,
+  ) {}
+  async findAll(): Promise<CompanyEntity[]> {
+    return await this.companyModel.find().exec();
   }
 }
