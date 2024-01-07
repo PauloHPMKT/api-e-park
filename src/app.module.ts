@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
+import { OpenaiModule } from './modules/openai/openai.module';
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [OpenaiModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
