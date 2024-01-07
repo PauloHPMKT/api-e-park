@@ -2,6 +2,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { EnvConfigService } from './infra/env-config/env-config.service';
 
 const logger = new Logger('main.ts');
 
@@ -19,7 +20,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  const port = 3002;
+  const envConfig = app.get<EnvConfigService>(EnvConfigService);
+  const port = envConfig.getAppPort();
   await app
     .listen(port)
     .then(() =>
