@@ -12,4 +12,7 @@ export class EnvConfigService implements EnvConfig {
   getNodeEnv(): string {
     return this.configService.get<string>('NODE_ENV');
   }
+  getDbHost(): string {
+    return this.configService.get<string>('DB_HOST');
+  }
 }
