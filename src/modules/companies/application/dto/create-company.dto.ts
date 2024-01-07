@@ -6,7 +6,6 @@ export class CreateCompanyDto {
   email: string;
   phone: string;
   address: CompanyProps.Address;
-  created_at: Date;
-  updated_at: Date;
-  deleted_at: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }

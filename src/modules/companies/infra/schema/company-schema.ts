@@ -24,23 +24,15 @@ export const CompanySchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    number: {
-      type: String,
-      required: true,
-    },
-    district: {
-      type: String,
-      required: true,
-    },
     city: {
       type: String,
       required: true,
     },
-    uf: {
+    state: {
       type: String,
       required: true,
     },
-    cep: {
+    zipCode: {
       type: String,
       required: true,
     },
