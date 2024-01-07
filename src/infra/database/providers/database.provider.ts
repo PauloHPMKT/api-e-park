@@ -1,9 +1,13 @@
 import * as mongoose from 'mongoose';
+import { EnvConfigService } from 'src/infra/env-config/env-config.service';
 
 export const databaseProviders = [
   {
     provide: 'DATABASE_CONNECTION',
-    useFactory: async (): Promise<typeof mongoose> =>
-      mongoose.connect('mongodb://db:27017/prodescriber'),
+    inject: [EnvConfigService],
+    useFactory: async (
+      envConfigService: EnvConfigService,
+    ): Promise<typeof mongoose> =>
+      mongoose.connect(envConfigService.getDbHost()),
   },
 ];
