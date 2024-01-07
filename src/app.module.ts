@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { OpenaiModule } from './modules/openai/openai.module';
+import { CompanyModule } from './modules/companies/company.module';
 @Module({
-  imports: [OpenaiModule],
+  imports: [CompanyModule, OpenaiModule],
   controllers: [],
   providers: [],
 })
