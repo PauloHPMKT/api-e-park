@@ -8,14 +8,18 @@ services:
     ports:
       - 3002:3002
     volumes:
-      - ./:/home/prodescriber_api/app
+      - .:/home/prodescriber_api/app
     tty: true
+    depends_on:
+      - db
     networks:
       - prodescriber-network
 
   db:
     image: mongo:4.4
     container_name: mongo-db
+    ports:
+      - 27017:27017
     volumes:
       - /mongodb/dbdata:/data/db
       - /mongodb/configdb:/data/configdb
