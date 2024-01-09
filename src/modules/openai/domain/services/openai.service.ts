@@ -57,6 +57,7 @@ export class OpenaiService {
     const data = {
       success: !!response,
       'result.message': response['choices'][0].message,
+      'result.updated_at': new Date(),
     };
     await this.openaiModel
       .updateOne({ _id: new ObjectId(id) }, { $set: data })
