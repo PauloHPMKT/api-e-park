@@ -8,7 +8,11 @@ import {
   Post,
 } from '@nestjs/common';
 import { OpenaiService } from '../domain/services/openai.service';
-import { ChatRequest, ChatResponse } from '../infra/types/openai.interface';
+import {
+  ChatRequest,
+  ChatResponse,
+  OpenAIChat,
+} from '../infra/types/openai.interface';
 import OpenAI from 'openai';
 
 @Controller('openai')
@@ -25,8 +29,8 @@ export class OpenaiController {
   }
 
   @Get('/history')
-  async historyOpenAI(): Promise<any> {
-    return await this.openaiService.getHistory();
+  async getAllMessagesOpenAI(): Promise<OpenAIChat[]> {
+    return await this.openaiService.findAll();
   }
 
   @Delete('/clean')

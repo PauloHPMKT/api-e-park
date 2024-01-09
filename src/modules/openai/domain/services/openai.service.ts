@@ -64,7 +64,7 @@ export class OpenaiService {
       .exec();
   }
 
-  async getHistory(): Promise<any> {
+  async findAll(): Promise<OpenAIChat[]> {
     return await this.openaiModel.find();
   }
 
