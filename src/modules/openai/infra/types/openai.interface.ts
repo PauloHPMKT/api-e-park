@@ -12,6 +12,7 @@ export interface ChatResponse {
 export interface Message {
   role: string;
   content: string;
+  updated_at: Date;
 }
 
 export interface OpenAIChat {
@@ -21,5 +22,4 @@ export interface OpenAIChat {
     message: Message;
   };
   created_at: Date;
-  updated_at: Date;
 }
