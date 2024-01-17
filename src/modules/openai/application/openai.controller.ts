@@ -22,6 +22,8 @@ export class OpenaiController {
   @Post('/chat')
   @HttpCode(HttpStatus.OK)
   async getChatOpenai(@Body() request: ChatRequest): Promise<ChatResponse> {
+    const { messages } = request;
+    console.log(messages);
     const getMessages = (await this.openaiService.getMessageData(
       request,
     )) as OpenAI.ChatCompletion;

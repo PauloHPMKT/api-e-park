@@ -24,8 +24,10 @@ export class OpenaiService {
   }
 
   async getMessageData(request: ChatRequest): Promise<OpenAI.ChatCompletion> {
-    const prompt = request.messages[0];
-    const promptData = await this.openaiModel.create({ message: prompt });
+    //Gere uma descrição eficiente, totalmente SEO-friendly para o produto: ${description}.
+    console.log(request.messages[0].content);
+    //const prompt = request.messages[0];
+    //const promptData = await this.openaiModel.create({ message: prompt });
 
     const response = await this.openaiService.chat.completions.create({
       model: 'gpt-3.5-turbo',
@@ -34,7 +36,7 @@ export class OpenaiService {
       messages: request.messages,
     });
 
-    await this.saveResponseToOpenaiModel(promptData._id.toString(), response);
+    //await this.saveResponseToOpenaiModel(promptData._id.toString(), response);
     return response;
   }
 
