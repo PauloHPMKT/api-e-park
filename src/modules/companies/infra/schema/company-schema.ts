@@ -32,17 +32,16 @@ export const CompanySchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    country: {
+      type: String,
+      required: true,
+    },
     zipCode: {
       type: String,
       required: true,
     },
   },
   created_at: {
-    type: Date,
-    default: Date.now,
-    required: true,
-  },
-  updated_at: {
     type: Date,
     default: Date.now,
     required: true,
