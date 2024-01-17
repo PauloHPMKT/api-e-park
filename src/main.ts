@@ -1,6 +1,6 @@
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { EnvConfigService } from './infra/env-config/env-config.service';
 
@@ -22,6 +22,16 @@ async function bootstrap() {
 
   const envConfig = app.get<EnvConfigService>(EnvConfigService);
   const port = envConfig.getAppPort();
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept',
+  });
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
   await app
     .listen(port)
     .then(() =>
