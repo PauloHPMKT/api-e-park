@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from '../../application/dto/CreateEmployees.dto';
 import { Model } from 'mongoose';
-import { Encript } from '../../infra/encript';
+import { Encript } from '../../../../infra/encript';
 
 @Injectable()
 export class EmployeesService {
