@@ -14,8 +14,10 @@ import {
   OpenAIChat,
 } from '../infra/types/openai.interface';
 import OpenAI from 'openai';
+import { isPublic } from 'src/modules/auth/application/decorators/public.decorator';
 
 @Controller('openai')
+@isPublic()
 export class OpenaiController {
   constructor(private readonly openaiService: OpenaiService) {}
 
