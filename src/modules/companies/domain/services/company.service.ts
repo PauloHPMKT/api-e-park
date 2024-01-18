@@ -15,7 +15,6 @@ export class CompanyService {
   }
 
   async create(data: CreateCompanyDto): Promise<CompanyEntity> {
-    console.log(data);
     return await this.companyModel.create(data);
   }
 }
