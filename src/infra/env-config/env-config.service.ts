@@ -18,9 +18,6 @@ export class EnvConfigService implements EnvConfig {
   getGPTAPIKey(): string {
     return this.configService.get<string>('OPENAI_API_KEY');
   }
-  getOrganizationsAPIKey(): string {
-    return this.configService.get<string>('ORGANIZATION_KEY');
-  }
   getSecretKey(): string {
     return this.configService.get<string>('JWT_SECRET');
   }

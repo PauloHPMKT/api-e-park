@@ -3,6 +3,5 @@ export interface EnvConfig {
   getNodeEnv: () => string;
   getDbHost: () => string;
   getGPTAPIKey: () => string;
-  getOrganizationsAPIKey: () => string;
   getSecretKey: () => string;
 }

@@ -5,6 +5,7 @@ import { EnvConfigModule } from './infra/env-config/env-config.module';
 import { EnvConfigService } from './infra/env-config/env-config.service';
 import { EmployeesModule } from './modules/employees/employees.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { publicProvider } from './modules/auth/infra/providers/public.provider';
 @Module({
   imports: [
     EnvConfigModule.forRoot(),
@@ -13,7 +14,7 @@ import { AuthModule } from './modules/auth/auth.module';
     CompanyModule,
     OpenaiModule,
   ],
-  providers: [EnvConfigService],
+  providers: [EnvConfigService, ...publicProvider],
   controllers: [],
 })
 export class AppModule {}
