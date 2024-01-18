@@ -22,6 +22,6 @@ export class EnvConfigService implements EnvConfig {
     return this.configService.get<string>('ORGANIZATION_KEY');
   }
   getSecretKey(): string {
-    return this.configService.get<string>('SECRET_KEY');
+    return this.configService.get<string>('JWT_SECRET');
   }
 }
