@@ -21,4 +21,7 @@ export class EnvConfigService implements EnvConfig {
   getOrganizationsAPIKey(): string {
     return this.configService.get<string>('ORGANIZATION_KEY');
   }
+  getSecretKey(): string {
+    return this.configService.get<string>('SECRET_KEY');
+  }
 }
