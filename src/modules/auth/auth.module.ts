@@ -20,10 +20,10 @@ import { LoginValiationMiddleware } from './application/middlewares/login-valida
   ],
   controllers: [AuthController],
   providers: [AuthService, EnvConfigService, JwtStrategy, LocalStrategy],
-  exports: [],
+  exports: [AuthService],
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoginValiationMiddleware).forRoutes('login');
+    consumer.apply(LoginValiationMiddleware).forRoutes('auth/login');
   }
 }
