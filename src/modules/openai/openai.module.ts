@@ -4,7 +4,7 @@ import { OpenaiService } from './domain/services/openai.service';
 import { EnvConfigModule } from 'src/infra/env-config/env-config.module';
 import { EnvConfigService } from 'src/infra/env-config/env-config.service';
 import { openaiProviders } from './infra/providers/openai.providers';
-import { DatabaseModule } from 'src/infra/database/database.module';
+import { DatabaseModule } from '../database/database.module';
 import { AuthOpenaiMiddleware } from './application/middlewares/auth-openai.middleware';
 import { AuthModule } from '../auth/auth.module';
 

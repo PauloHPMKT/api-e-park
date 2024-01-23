@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { DatabaseModule } from 'src/infra/database/database.module';
+import { DatabaseModule } from '../database/database.module';
 import { AuthController } from './application/auth.controller';
 import { AuthService } from './domain/services/auth.service';
 import { EmployeesModule } from '../employees/employees.module';

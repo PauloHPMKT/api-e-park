@@ -7,7 +7,9 @@ import {
 } from '../../infra/types/openai.interface';
 import { EnvConfigService } from '../../../../infra/env-config/env-config.service';
 import { Model } from 'mongoose';
-import { ObjectId } from 'bson';
+//import { ObjectId } from 'bson';
+import { PayloadProps } from 'src/infra/models/payload-props';
+import { AuthRequest } from 'src/infra/models/auth-request';
 
 @Injectable()
 export class OpenaiService {
@@ -24,19 +26,12 @@ export class OpenaiService {
   }
 
   async getMessageData(request: ChatRequest): Promise<OpenAI.ChatCompletion> {
-    //Gere uma descrição eficiente, totalmente SEO-friendly para o produto: ${description}.
-    console.log(request.messages[0].content);
-    //const prompt = request.messages[0];
-    //const promptData = await this.openaiModel.create({ message: prompt });
-
     const response = await this.openaiService.chat.completions.create({
       model: 'gpt-3.5-turbo',
       max_tokens: 2048,
       temperature: 0.8,
       messages: request.messages,
     });
-
-    //await this.saveResponseToOpenaiModel(promptData._id.toString(), response);
     return response;
   }
 
@@ -48,22 +43,37 @@ export class OpenaiService {
       success: !!result,
       result,
     };
-
     return response;
   }
 
+  async validateAuthentication(auth: boolean, authUser: PayloadProps) {
+    if (auth) return authUser;
+  }
+
   async saveResponseToOpenaiModel(
-    id: string,
-    response: OpenAI.ChatCompletion,
-  ): Promise<void> {
+    req: AuthRequest<PayloadProps>,
+    message: any,
+  ): Promise<any> {
+    console.log(message);
     const data = {
-      success: !!response,
-      'result.message': response['choices'][0].message,
-      'result.updated_at': new Date(),
+      success: !!message,
+      message: {
+        role: req.user.role_gpt_generate,
+        content: message.prompt,
+      },
+      result: {
+        message: {
+          role: 'assistant',
+          content: message.content,
+        },
+      },
     };
-    await this.openaiModel
-      .updateOne({ _id: new ObjectId(id) }, { $set: data })
-      .exec();
+
+    console.log(data);
+    // await this.openaiModel
+    //   .updateOne({ _id: new ObjectId(id) }, { $set: data })
+    //   .exec();
+    return await this.openaiModel.create(data);
   }
 
   async findAll(): Promise<OpenAIChat[]> {
