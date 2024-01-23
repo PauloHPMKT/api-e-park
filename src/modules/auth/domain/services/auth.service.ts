@@ -44,4 +44,13 @@ export class AuthService {
     }
     throw new Error('Invalid credentials');
   }
+
+  async verifyToken(token: string): Promise<PayloadProps | null> {
+    try {
+      const decoded = (await this.jwtService.verify(token)) as PayloadProps;
+      return decoded;
+    } catch (error) {
+      return null;
+    }
+  }
 }
