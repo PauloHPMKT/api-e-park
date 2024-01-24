@@ -74,8 +74,12 @@ export class OpenaiService {
     return await this.openaiRepository.save(data);
   }
 
-  async findAll(): Promise<OpenAIChat[]> {
-    return; //await this.openaiRepository.find();
+  async findContents(): Promise<OpenAIChat[]> {
+    const contents = await this.openaiRepository.findAll();
+    if (!contents) {
+      throw new Error('A lista de descrições está vazia');
+    }
+    return contents;
   }
 
   async removeHistory(): Promise<any> {

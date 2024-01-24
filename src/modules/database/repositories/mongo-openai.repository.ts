@@ -12,4 +12,8 @@ export class MongoOpenaiRepository implements OpenaiRepository {
     const response = await this.openaiModel.create(content);
     return response;
   }
+
+  async findAll(): Promise<OpenAIChat[]> {
+    return await this.openaiModel.find();
+  }
 }
