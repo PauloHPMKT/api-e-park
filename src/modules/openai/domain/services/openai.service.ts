@@ -1,22 +1,23 @@
-import OpenAI from 'openai';
-import { Inject, Injectable } from '@nestjs/common';
 import {
   ChatRequest,
   ChatResponse,
+  Description,
   OpenAIChat,
 } from '../../infra/types/openai.interface';
+import OpenAI from 'openai';
+import { Inject, Injectable } from '@nestjs/common';
 import { EnvConfigService } from '../../../../infra/env-config/env-config.service';
-import { Model } from 'mongoose';
-//import { ObjectId } from 'bson';
 import { PayloadProps } from 'src/infra/models/payload-props';
 import { AuthRequest } from 'src/infra/models/auth-request';
+import { OpenaiRepository } from '../../infra/repositories/openai.repository';
 
 @Injectable()
 export class OpenaiService {
   private openaiService: OpenAI;
 
   constructor(
-    @Inject('OPENAI_MODEL') private readonly openaiModel: Model<OpenAIChat>,
+    @Inject('OpenaiRepository')
+    private readonly openaiRepository: OpenaiRepository,
     private readonly envConfigService: EnvConfigService,
   ) {
     const apiKey = this.envConfigService.getGPTAPIKey();
@@ -50,37 +51,34 @@ export class OpenaiService {
     if (auth) return authUser;
   }
 
-  async saveResponseToOpenaiModel(
+  async saveDescription(
     req: AuthRequest<PayloadProps>,
-    message: any,
-  ): Promise<any> {
-    console.log(message);
-    const data = {
-      success: !!message,
+    content: Description,
+  ): Promise<OpenAIChat> {
+    const data: OpenAIChat = {
+      success: !!content,
       message: {
         role: req.user.role_gpt_generate,
-        content: message.prompt,
+        content: content.prompt,
       },
       result: {
         message: {
           role: 'assistant',
-          content: message.content,
+          content: content.content,
         },
       },
     };
-
-    console.log(data);
-    // await this.openaiModel
-    //   .updateOne({ _id: new ObjectId(id) }, { $set: data })
-    //   .exec();
-    return await this.openaiModel.create(data);
+    /**
+     * Fazer verificação pelo _id da mensagem
+     */
+    return await this.openaiRepository.save(data);
   }
 
   async findAll(): Promise<OpenAIChat[]> {
-    return await this.openaiModel.find();
+    return; //await this.openaiRepository.find();
   }
 
   async removeHistory(): Promise<any> {
-    return await this.openaiModel.deleteMany({});
+    return; //await this.openaiRepository.deleteMany({});
   }
 }
