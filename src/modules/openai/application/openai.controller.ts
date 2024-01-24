@@ -8,8 +8,12 @@ import {
   Post,
   Request,
 } from '@nestjs/common';
+import {
+  ChatRequest,
+  ChatResponse,
+  Description,
+} from '../infra/types/openai.interface';
 import { OpenaiService } from '../domain/services/openai.service';
-import { ChatRequest, ChatResponse } from '../infra/types/openai.interface';
 import OpenAI from 'openai';
 import { isPublic } from 'src/modules/auth/application/decorators/public.decorator';
 import { AuthRequest } from 'src/infra/models/auth-request';
@@ -36,20 +40,10 @@ export class OpenaiController {
   @Post('/save-response')
   async saveResponse(
     @Request() req: AuthRequest<PayloadProps>,
-    @Body() message: object,
+    @Body() content: Description,
   ): Promise<void> {
-    //const authUser = req.user; // Isso depende do seu mecanismo de autenticação
-    await this.openaiService.saveResponseToOpenaiModel(req, message);
+    await this.openaiService.saveDescription(req, content);
   }
-  // @Post('/save-response')
-  // async saveDescription(
-  //   @Request() req: AuthRequest<PayloadProps>,
-  //   @Body() message: ChatRequest,
-  // ): Promise<void> {
-  //   console.log(req.user, message);
-  //   //const authUser = req.user; // Isso depende do seu mecanismo de autenticação
-  //   //await this.openaiService.saveResponseToOpenaiModel(req, message);
-  // }
 
   @Get('/history')
   async getAllMessagesOpenAI(): Promise<any> {
