@@ -12,6 +12,7 @@ import {
   ChatRequest,
   ChatResponse,
   Description,
+  OpenAIChat,
 } from '../infra/types/openai.interface';
 import { OpenaiService } from '../domain/services/openai.service';
 import OpenAI from 'openai';
@@ -46,9 +47,8 @@ export class OpenaiController {
   }
 
   @Get('/history')
-  async getAllMessagesOpenAI(): Promise<any> {
-    //console.log('teste');
-    return await this.openaiService.findAll();
+  async getAllMessagesOpenAI(): Promise<OpenAIChat[]> {
+    return await this.openaiService.findContents();
   }
 
   @Delete('/clean')
