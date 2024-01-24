@@ -68,9 +68,6 @@ export class OpenaiService {
         },
       },
     };
-    /**
-     * Fazer verificação pelo _id da mensagem
-     */
     return await this.openaiRepository.save(data);
   }
 
